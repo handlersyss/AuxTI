@@ -51,10 +51,10 @@ del /q "%SystemRoot%\Prefetch\*.pf" 2>nul
 
 :: Verifica se a limpeza foi bem-sucedida
 if %errorLevel% equ 0 (
-    echo ✓ Limpeza concluida com sucesso!
-    echo ✓ %count% arquivo(s) prefetch removido(s).
+    echo Limpeza concluida com sucesso!
+    echo %count% arquivo(s) prefetch removido(s).
 ) else (
-    echo ✗ Erro durante a limpeza dos arquivos prefetch.
+    echo Erro durante a limpeza dos arquivos prefetch.
     echo Alguns arquivos podem estar em uso pelo sistema.
 )
 

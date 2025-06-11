@@ -122,9 +122,9 @@ echo.
 echo Teste de conectividade:
 ping -n 2 8.8.8.8 >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ Conectividade com internet: OK
+    echo Conectividade com internet: OK
 ) else (
-    echo ✗ Conectividade com internet: FALHA
+    echo Conectividade com internet: FALHA
 )
 
 echo.
@@ -172,9 +172,9 @@ echo Verificando integridade dos arquivos do sistema...
 echo (Esta operacao pode levar alguns minutos)
 sfc /verifyonly >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ Integridade dos arquivos do sistema: OK
+    echo Integridade dos arquivos do sistema: OK
 ) else (
-    echo ⚠ Problemas encontrados na integridade dos arquivos
+    echo Problemas encontrados na integridade dos arquivos
     echo Execute "sfc /scannow" como administrador para corrigir
 )
 
@@ -182,9 +182,9 @@ echo.
 echo Verificando saude do disco C:
 chkdsk C: /f /v >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ Disco C: parece estar saudavel
+    echo Disco C: parece estar saudavel
 ) else (
-    echo ⚠ Problemas potenciais no disco C:
+    echo Problemas potenciais no disco C:
     echo Execute "chkdsk C: /f" como administrador para verificar
 )
 
@@ -242,8 +242,8 @@ echo Gerando relatorio resumido...
     systeminfo | findstr /C:"Nome do host" /C:"Nome do SO" /C:"Processador" /C:"Memoria fisica total"
     echo.
     echo STATUS GERAL:
-    ping -n 1 8.8.8.8 >nul 2>&1 && echo ✓ Internet: OK || echo ✗ Internet: PROBLEMA
-    sfc /verifyonly >nul 2>&1 && echo ✓ Integridade: OK || echo ⚠ Integridade: VERIFICAR
+    ping -n 1 8.8.8.8 >nul 2>&1 && echo Internet: OK || echo Internet: PROBLEMA
+    sfc /verifyonly >nul 2>&1 && echo Integridade: OK || echo Integridade: VERIFICAR
     echo.
     echo RECURSOS:
     for /f "skip=1" %%i in ('wmic OS get FreePhysicalMemory /value') do if "%%i" neq "" set free_mem=%%i
@@ -254,7 +254,7 @@ echo Gerando relatorio resumido...
     echo.
 ) > "%report_dir%\diagnostico_%timestamp%.txt"
 
-echo ✓ Relatorio salvo em: %report_dir%\diagnostico_%timestamp%.txt
+echo Relatorio salvo em: %report_dir%\diagnostico_%timestamp%.txt
 
 echo.
 echo RESUMO DO DIAGNOSTICO:

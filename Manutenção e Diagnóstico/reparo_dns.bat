@@ -55,9 +55,9 @@ echo [2/7] Renovando configuracoes IP...
 ipconfig /release >nul 2>&1
 ipconfig /renew >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ IP renovado com sucesso
+    echo IP renovado com sucesso
 ) else (
-    echo ✗ Erro ao renovar IP
+    echo Erro ao renovar IP
 )
 echo.
 
@@ -65,9 +65,9 @@ echo.
 echo [3/7] Redefinindo Winsock...
 netsh winsock reset
 if %errorLevel% equ 0 (
-    echo ✓ Winsock redefinido com sucesso
+    echo Winsock redefinido com sucesso
 ) else (
-    echo ✗ Erro ao redefinir Winsock
+    echo Erro ao redefinir Winsock
 )
 echo.
 
@@ -75,9 +75,9 @@ echo.
 echo [4/7] Redefinindo TCP/IP...
 netsh int ip reset
 if %errorLevel% equ 0 (
-    echo ✓ TCP/IP redefinido com sucesso
+    echo TCP/IP redefinido com sucesso
 ) else (
-    echo ✗ Erro ao redefinir TCP/IP
+    echo Erro ao redefinir TCP/IP
 )
 echo.
 
@@ -86,7 +86,7 @@ echo [5/7] Redefinindo configuracoes DNS...
 netsh interface ip set dns "Conexão Local" dhcp >nul 2>&1
 netsh interface ip set dns "Wi-Fi" dhcp >nul 2>&1
 netsh interface ip set dns "Ethernet" dhcp >nul 2>&1
-echo ✓ Configuracoes DNS redefinidas
+echo Configuracoes DNS redefinidas
 echo.
 
 :: 6. Configurar DNS alternativo (opcional)
@@ -103,15 +103,15 @@ set /p dns_choice="Escolha uma opcao (1-4): "
 if "%dns_choice%"=="1" (
     echo Configurando Google DNS...
     call :set_dns "8.8.8.8" "8.8.4.4"
-    echo ✓ Google DNS configurado
+    echo Google DNS configurado
 ) else if "%dns_choice%"=="2" (
     echo Configurando Cloudflare DNS...
     call :set_dns "1.1.1.1" "1.0.0.1"
-    echo ✓ Cloudflare DNS configurado
+    echo Cloudflare DNS configurado
 ) else if "%dns_choice%"=="3" (
     echo Configurando OpenDNS...
     call :set_dns "208.67.222.222" "208.67.220.220"
-    echo ✓ OpenDNS configurado
+    echo OpenDNS configurado
 ) else (
     echo Mantendo configuracao automatica (DHCP)
 )
@@ -123,7 +123,7 @@ net stop dnscache >nul 2>&1
 net start dnscache >nul 2>&1
 net stop "DHCP Client" >nul 2>&1
 net start "DHCP Client" >nul 2>&1
-echo ✓ Servicos de rede reiniciados
+echo Servicos de rede reiniciados
 echo.
 
 :: Teste de conectividade
@@ -134,17 +134,17 @@ echo.
 echo Testando conectividade DNS...
 ping -n 2 8.8.8.8 >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ Conectividade com servidor DNS: OK
+    echo Conectividade com servidor DNS: OK
     
     echo Testando resolucao de nomes...
     nslookup google.com >nul 2>&1
     if !errorLevel! equ 0 (
-        echo ✓ Resolucao de nomes DNS: OK
+        echo Resolucao de nomes DNS: OK
     ) else (
-        echo ✗ Resolucao de nomes DNS: FALHA
+        echo Resolucao de nomes DNS: FALHA
     )
 ) else (
-    echo ✗ Conectividade com servidor DNS: FALHA
+    echo Conectividade com servidor DNS: FALHA
 )
 
 echo.

@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 title Teste de Conexao com Internet
 color 0B
 
@@ -14,7 +15,6 @@ set /a successful_tests=0
 
 echo Iniciando testes de conectividade...
 echo.
-
 :: Testa cada servidor
 for %%s in (%servers%) do (
     echo Testando conexao com %%s...
@@ -22,11 +22,12 @@ for %%s in (%servers%) do (
     set /a total_tests+=1
     
     if !errorlevel! equ 0 (
-        echo ✓ %%s - CONECTADO
+        echo %%s - CONECTADO
         set /a successful_tests+=1
     ) else (
-        echo ✗ %%s - FALHA NA CONEXAO
+        echo %%s - FALHA NA CONEXAO
     )
+)
 )
 
 echo.
@@ -67,13 +68,13 @@ echo.
 
 :: Diagnóstico final
 if %successful_tests% equ %total_tests% (
-    echo ✓ STATUS: CONEXAO COM INTERNET OK
+    echo STATUS: CONEXAO COM INTERNET OK
     echo Sua conexao com a internet esta funcionando normalmente.
 ) else if %successful_tests% gtr 0 (
-    echo ⚠ STATUS: CONEXAO INSTAVEL
+    echo STATUS: CONEXAO INSTAVEL
     echo Alguns testes falharam. Verifique sua conexao.
 ) else (
-    echo ✗ STATUS: SEM CONEXAO COM INTERNET
+    echo STATUS: SEM CONEXAO COM INTERNET
     echo Nenhum teste foi bem-sucedido. Verifique:
     echo - Cabo de rede / WiFi
     echo - Configuracoes de rede

@@ -65,9 +65,9 @@ echo Executando flush DNS...
 ipconfig /flushdns
 
 if %errorLevel% equ 0 (
-    echo ✓ Cache DNS limpo com sucesso!
+    echo Cache DNS limpo com sucesso!
 ) else (
-    echo ✗ Erro ao limpar cache DNS
+    echo Erro ao limpar cache DNS
     echo Codigo de erro: %errorLevel%
 )
 
@@ -79,12 +79,12 @@ net stop dnscache >nul 2>&1
 if %errorLevel% equ 0 (
     net start dnscache >nul 2>&1
     if !errorLevel! equ 0 (
-        echo ✓ Servico DNS Client reiniciado
+        echo Servico DNS Client reiniciado
     ) else (
-        echo ✗ Erro ao iniciar servico DNS Client
+        echo Erro ao iniciar servico DNS Client
     )
 ) else (
-    echo ⚠ Nao foi possivel reiniciar servico (privilegios insuficientes)
+    echo Nao foi possivel reiniciar servico (privilegios insuficientes)
 )
 
 echo.
@@ -100,9 +100,9 @@ set /p new_dns_count=<temp_count2.txt
 del temp_count2.txt >nul 2>&1
 
 if %new_dns_count% equ 0 (
-    echo ✓ Cache DNS completamente limpo
+    echo Cache DNS completamente limpo
 ) else (
-    echo ⚠ Ainda existem %new_dns_count% entradas no cache
+    echo Ainda existem %new_dns_count% entradas no cache
     echo Isso e normal - algumas entradas sao recriadas automaticamente
 )
 
@@ -116,14 +116,14 @@ echo.
 echo Testando resolucao DNS...
 nslookup google.com >nul 2>&1
 if %errorLevel% equ 0 (
-    echo ✓ Resolucao DNS funcionando normalmente
+    echo Resolucao DNS funcionando normalmente
     
     :: Mostra tempo de resposta
     echo.
     echo Teste de conectividade:
     ping -n 1 8.8.8.8 | findstr /i "tempo"
 ) else (
-    echo ✗ Problema na resolucao DNS
+    echo Problema na resolucao DNS
     echo Verifique sua conexao com a internet
 )
 

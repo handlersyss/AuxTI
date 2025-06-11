@@ -79,12 +79,12 @@ if %errorLevel% equ 0 (
     echo Testando acesso...
     dir %drive_letter%:\ >nul 2>&1
     if !errorLevel! equ 0 (
-        echo ✓ Acesso ao drive confirmado
+        echo Acesso ao drive confirmado
     ) else (
-        echo ⚠ Drive mapeado mas acesso pode estar limitado
+        echo Drive mapeado mas acesso pode estar limitado
     )
 ) else (
-    echo ✗ Erro ao mapear drive
+    echo Erro ao mapear drive
     echo Verifique o caminho de rede e credenciais
 )
 
@@ -130,9 +130,9 @@ echo Desconectando drive %drive_to_disconnect%:...
 net use %drive_to_disconnect%: /delete
 
 if %errorLevel% equ 0 (
-    echo ✓ Drive %drive_to_disconnect%: desconectado com sucesso!
+    echo Drive %drive_to_disconnect%: desconectado com sucesso!
 ) else (
-    echo ✗ Erro ao desconectar drive %drive_to_disconnect%:
+    echo Erro ao desconectar drive %drive_to_disconnect%:
 )
 
 echo.
@@ -164,9 +164,9 @@ echo Desconectando todos os drives...
 net use * /delete /yes
 
 if %errorLevel% equ 0 (
-    echo ✓ Todos os drives foram desconectados!
+    echo Todos os drives foram desconectados!
 ) else (
-    echo ⚠ Alguns drives podem nao ter sido desconectados
+    echo Alguns drives podem nao ter sido desconectados
 )
 
 echo.
@@ -231,9 +231,9 @@ echo Mapeando %drive_letter%: para %network_path%...
 net use %drive_letter%: "%network_path%" /persistent:yes
 
 if %errorLevel% equ 0 (
-    echo ✓ Drive predefinido mapeado com sucesso!
+    echo Drive predefinido mapeado com sucesso!
 ) else (
-    echo ✗ Erro ao mapear drive predefinido
+    echo Erro ao mapear drive predefinido
 )
 
 echo.
@@ -260,9 +260,9 @@ echo.
 echo 2. Teste de conectividade SMB (porta 445)...
 telnet %test_server% 445 2>nul
 if %errorLevel% equ 0 (
-    echo ✓ Porta 445 (SMB) acessivel
+    echo Porta 445 (SMB) acessivel
 ) else (
-    echo ✗ Porta 445 (SMB) nao acessivel
+    echo Porta 445 (SMB) nao acessivel
 )
 
 echo.
@@ -297,7 +297,7 @@ goto save_load_config
 echo.
 echo Salvando configuracao atual...
 net use > drives_config.txt
-echo ✓ Configuracao salva em drives_config.txt
+echo Configuracao salva em drives_config.txt
 echo.
 pause
 goto main_menu
@@ -306,7 +306,7 @@ goto main_menu
 echo.
 echo Carregando configuracao...
 if not exist drives_config.txt (
-    echo ✗ Arquivo de configuracao nao encontrado!
+    echo Arquivo de configuracao nao encontrado!
     pause
     goto main_menu
 )

@@ -25,18 +25,18 @@ if %errorLevel% neq 0 (
     powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
     
     if %errorLevel% neq 0 (
-        echo ✗ Erro ao instalar Chocolatey
+        echo Erro ao instalar Chocolatey
         echo Tentando instalacao manual...
         goto manual_install
     )
     
-    echo ✓ Chocolatey instalado com sucesso!
+    echo Chocolatey instalado com sucesso!
     echo Reinicie o prompt como administrador para usar o Chocolatey.
     echo.
     pause
     exit /b 0
 ) else (
-    echo ✓ Chocolatey ja esta instalado
+    echo Chocolatey ja esta instalado
 )
 
 echo.
