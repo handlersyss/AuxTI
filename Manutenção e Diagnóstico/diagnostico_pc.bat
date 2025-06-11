@@ -140,27 +140,30 @@ echo ================================================
 echo.
 
 echo Servicos criticos:
-sc query "Themes" | findstr STATE
-sc query "AudioSrv" | findstr STATE
-sc query "BITS" | findstr STATE
-sc query "Dhcp" | findstr STATE
-sc query "Dnscache" | findstr STATE
-sc query "EventLog" | findstr STATE
-sc query "lanmanserver" | findstr STATE
-sc query "LanmanWorkstation" | findstr STATE
-sc query "RpcSs" | findstr STATE
-sc query "Schedule" | findstr STATE
-sc query "W32Time" | findstr STATE
-sc query "Winmgmt" | findstr STATE
-sc query "WSearch" | findstr STATE
+echo Verificando servicos essenciais...
+(
+    sc query "Themes" | find "STATE" 2>nul || echo Themes: NAO ENCONTRADO
+    sc query "AudioSrv" | find "STATE" 2>nul || echo AudioSrv: NAO ENCONTRADO
+    sc query "BITS" | find "STATE" 2>nul || echo BITS: NAO ENCONTRADO
+    sc query "Dhcp" | find "STATE" 2>nul || echo Dhcp: NAO ENCONTRADO
+    sc query "Dnscache" | find "STATE" 2>nul || echo Dnscache: NAO ENCONTRADO
+    sc query "EventLog" | find "STATE" 2>nul || echo EventLog: NAO ENCONTRADO
+    sc query "lanmanserver" | find "STATE" 2>nul || echo lanmanserver: NAO ENCONTRADO
+    sc query "LanmanWorkstation" | find "STATE" 2>nul || echo LanmanWorkstation: NAO ENCONTRADO
+    sc query "RpcSs" | find "STATE" 2>nul || echo RpcSs: NAO ENCONTRADO
+    sc query "Schedule" | find "STATE" 2>nul || echo Schedule: NAO ENCONTRADO
+    sc query "W32Time" | find "STATE" 2>nul || echo W32Time: NAO ENCONTRADO
+    sc query "Winmgmt" | find "STATE" 2>nul || echo Winmgmt: NAO ENCONTRADO
+    sc query "WSearch" | find "STATE" 2>nul || echo WSearch: NAO ENCONTRADO
+) 2>nul
 
 echo.
 echo Top 10 processos por uso de CPU:
-wmic process get name,processid,percentprocessortime /format:table 2>nul | more +1 | head -10
+tasklist /v /fo csv | sort /R | findstr /v "Image" | findstr /v "==" | more +1 | findstr /n ".*" | findstr "^[1-9]:" 
 
 echo.
 echo Processos usando mais memoria:
-tasklist /fo table | sort /r /+5 | more +3 | head -10
+tasklist /v /fo csv | sort /R | findstr /v "Image" | findstr /v "==" | more +1 | findstr /n ".*" | findstr "^[1-9]:"
 
 echo.
 echo ================================================
@@ -285,5 +288,10 @@ set /p view_report="Deseja abrir o relatorio agora? (S/N): "
 if /i "%view_report%"=="S" (
     notepad "%report_dir%\diagnostico_%timestamp%.txt"
 )
+
+echo.
+echo Pressione ENTER para sair...
+pause >nul
+cmd /k
 
 pause
